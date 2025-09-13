@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RCS Diwali Offer</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #2b0a45, #4b116f);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+    }
+    header { padding: 20px; display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.2); }
+    header h1 { color: #ffcc00; font-size: 28px; }
+    header button { background: linear-gradient(45deg, #ff6600, #ff3300); color: #fff; padding: 10px 20px; border: none; border-radius: 25px; font-size: 16px; cursor: pointer; transition: 0.3s; }
+    header button:hover { transform: scale(1.1); }
+    .hero { padding: 50px 20px; position: relative; }
+    .hero h2 { font-size: 36px; color: #ffcc00; text-shadow: 0 0 10px #ff6600; }
+    .hero p { font-size: 18px; margin: 10px 0 20px; }
+    .hero .cta { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+    .hero .cta button, .hero .cta a { padding: 12px 30px; border: none; border-radius: 30px; font-size: 18px; cursor: pointer; transition: 0.3s; text-decoration: none; text-align: center; }
+    .book { background: #28a745; color: #fff; }
+    .more { background: #fff; color: #333; }
+    .hero .cta button:hover, .hero .cta a:hover { transform: scale(1.05); }
+    .offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 40px 20px; }
+    .offer-card { background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px; transition: 0.3s; }
+    .offer-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.2); }
+    .offer-card h3 { color: #ffcc00; }
+    .countdown { margin: 30px 0; font-size: 22px; font-weight: bold; color: #ff6600; }
+    footer { padding: 20px; background: rgba(0, 0, 0, 0.3); margin-top: 30px; position: relative; }
+    footer p { margin: 5px 0; font-size: 14px; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 1000; }
+    .modal-content { background: #fff3e0; padding: 20px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 0 20px #ff6600; animation: popup 0.5s ease; }
+    .modal-content input, .modal-content textarea { width: 90%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; }
+    .modal-content button { background: linear-gradient(45deg, #ff6600, #ff3300); color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; }
+    @keyframes popup { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    section { padding: 30px 20px; }
+    .service { background: rgba(255, 255, 255, 0.15); margin: 15px auto; padding: 20px; border-radius: 10px; max-width: 600px; box-shadow: 0 0 15px rgba(255, 102, 0, 0.3); }
+    .service h2 { color: #ffcc66; }
+    .offer { font-weight: bold; color: #ff9933; }
+    a.back { display: inline-block; margin: 20px; padding: 10px 20px; background: #28a745; color: #fff; border-radius: 8px; text-decoration: none; }
+    .diya { position: absolute; bottom: -30px; width: 40px; height: 40px; background: radial-gradient(circle, #ff9933 30%, #cc3300 70%); border-radius: 50% 50% 0 0; left: 50%; transform: translateX(-50%); animation: glow 1.5s infinite alternate; }
+    .diya::before { content: ''; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 12px; height: 20px; background: radial-gradient(ellipse at center, yellow, orange, transparent); border-radius: 50%; animation: flame 0.5s infinite alternate; }
+    @keyframes flame { from { transform: translateX(-50%) scaleY(1); } to { transform: translateX(-50%) scaleY(1.2); } }
+    .firework { position: absolute; width: 5px; height: 5px; background: yellow; border-radius: 50%; animation: explode 1.5s ease-out infinite; }
+    @keyframes explode { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(5); opacity: 0; } }
+    canvas#fire { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.3; }
+  </style>
+</head>
+<body>
+  <canvas id="fire"></canvas>
+  <header>
+    <h1>Raison Consultancy Services 🎇</h1>
+    <button>Grab Offer Now</button>
+  </header>
+  <section class="hero">
+    <h2>✨ Diwali Dhamaka Offer – Flat 40% OFF ✨</h2>
+    <p>On All RCS Services! Valid till Diwali night only. Hurry up!</p>
+    <div class="cta">
+      <button class="book">Book Now</button>
+      <a href="#services" class="more">Know More</a>
+    </div>
+    <div class="diya"><div class="flame"></div></div>
+  </section>
+  <section id="services" class="offers">
+    <div class="offer-card"><h3>Website Development</h3><p>🔥 Flat 40% OFF</p></div>
+    <div class="offer-card"><h3>Digital Marketing</h3><p>🎉 Flat 30% OFF</p></div>
+    <div class="offer-card"><h3>Mobile App Solutions</h3><p>💡 Flat 35% OFF</p></div>
+  </section>
+  <div>
+    <section>
+      <div class="service">
+        <h2>🌐 Website Development</h2>
+        <p>We design responsive, modern, and high-performing websites.</p>
+        <p class="offer">✨ Diwali Offer: Flat 40% OFF ✨</p>
+      </div>
+      <div class="service">
+        <h2>📢 Digital Marketing</h2>
+        <p>Boost your business with SEO, social media marketing, and paid ads.</p>
+        <p class="offer">🎉 Diwali Offer: Flat 30% OFF 🎉</p>
+      </div>
+      <div class="service">
+        <h2>📱 Mobile App Solutions</h2>
+        <p>We build Android & iOS apps with seamless performance.</p>
+        <p class="offer">💡 Diwali Offer: Flat 35% OFF 💡</p>
+      </div>
+    </section>
+  </div>
+  <div class="countdown" id="countdown">⏳ Offer Ends Soon – Don’t Miss Out!</div>
+  <div id="formModal" class="modal">
+    <div class="modal-content">
+      <h2>🎇 Book Your Festive Offer 🎇</h2>
+      <form id="offerForm">
+        <input type="text" id="name" placeholder="Enter Name" required>
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <input type="tel" id="number" placeholder="Enter Number" required>
+		<input type="text" id="service" placeholder="Enter Service" required>		
+        <textarea id="address" placeholder="Enter Address" required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  <audio id="crackers-sound" src="crackers.mp3"></audio>
+  <footer>
+    <p>© 2025 RCS – Wishing You a Prosperous Diwali! 🎆</p>
+    <p>Email: raisoncspvtltd@gmail.com | Phone: +91-9876543210</p>
+    <p style="position: absolute; bottom: -5px; right: 10px; color: yellow; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 5px;">Developed By: AS</p>
+  </footer>
+  <div class="firework" style="top:20%; left:30%; background:red;"></div>
+  <div class="firework" style="top:40%; left:70%; background:yellow;"></div>
+  <div class="firework" style="top:60%; left:50%; background:orange;"></div>
+  <script>
+    const canvas = document.getElementById('fire');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const particles = [];
+    const particleCount = 100;
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = canvas.height;
+        this.vx = (Math.random() - 0.5) * 4;
+        this.vy = -Math.random() * 10 - 5;
+        this.size = Math.random() * 3 + 1;
+        this.alpha = 1;
+        this.color = `hsl(${Math.random() * 20 + 10}, 100%, 50%)`;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.alpha;
+        ctx.fill();
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy -= 0.05;
+        this.alpha -= 0.01;
+        this.size += 0.05;
+        if (this.alpha <= 0) this.reset();
+      }
+    }
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+    const bookBtn = document.querySelector(".book");
+    const modal = document.getElementById("formModal");
+    const crackers = document.getElementById("crackers-sound");
+    bookBtn.addEventListener("click", () => {
+      crackers.play();
+      modal.style.display = "flex";
+    });
+    modal.addEventListener("click", (e) => {
+      if(e.target === modal){ modal.style.display = "none"; }
+    });
+    const countdownEl = document.getElementById("countdown");
+    const diwaliDate = new Date("Oct 20, 2025 00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = diwaliDate - now;
+      if (distance < 0) { countdownEl.innerHTML = "🎆 Offer Expired! 🎆"; return; }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdownEl.innerHTML = `⏳ Offer Ends In: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }, 1000);
+    document.querySelector(".more").addEventListener("click", function(e){
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDG_U6wW3v3MSky2BnSarpDr8mdtgCl1E",
+      authDomain: "raisonconsultancyservice-70607.firebaseapp.com",
+      databaseURL: "https://raisonconsultancyservice-70607-default-rtdb.firebaseio.com",
+      projectId: "raisonconsultancyservice-70607",
+      storageBucket: "raisonconsultancyservice-70607.firebasestorage.app",
+      messagingSenderId: "1046202358006",
+      appId: "1:1046202358006:web:4254a237e53d12aedd74d7"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    document.getElementById("offerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      modal.style.display = "none";
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const number = document.getElementById("number").value;
+      const address = document.getElementById("address").value;
+      try {
+        await addDoc(collection(db, "diwali"), {
+          name, email, number, address,
+          timestamp: new Date()
+        });
+        alert("🎉 Booking Successful!");
+        document.getElementById("offerForm").reset();
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        alert("❌ Error saving data. Check console.");
+      }
+    });
+  </script>
+</body>
+</html>
