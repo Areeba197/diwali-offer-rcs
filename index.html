@@ -36,6 +36,7 @@
     footer p { margin: 5px 0; font-size: 14px; }
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 1000; }
     .modal-content { background: #fff3e0; padding: 20px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 0 20px #ff6600; animation: popup 0.5s ease; }
+    .modal-content h2 { color: #4b116f; }
     .modal-content input, .modal-content textarea { width: 90%; padding: 10px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; }
     .modal-content button { background: linear-gradient(45deg, #ff6600, #ff3300); color: white; border: none; padding: 12px 20px; border-radius: 10px; cursor: pointer; }
     @keyframes popup { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -50,13 +51,24 @@
     .firework { position: absolute; width: 5px; height: 5px; background: yellow; border-radius: 50%; animation: explode 1.5s ease-out infinite; }
     @keyframes explode { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(5); opacity: 0; } }
     canvas#fire { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.3; }
+    /* Loader */
+    .loader {
+      border: 2px solid #f3f3f3;
+      border-top: 3px solid #ff6600;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <canvas id="fire"></canvas>
   <header>
     <h1>Raison Consultancy Services 🎇</h1>
-    <button>Grab Offer Now</button>
+    <button id="grabOffer">Grab Offer Now</button>
   </header>
   <section class="hero">
     <h2>✨ Diwali Dhamaka Offer – Flat 40% OFF ✨</h2>
@@ -92,6 +104,8 @@
     </section>
   </div>
   <div class="countdown" id="countdown">⏳ Offer Ends Soon – Don’t Miss Out!</div>
+ 
+  <!-- Form Modal -->
   <div id="formModal" class="modal">
     <div class="modal-content">
       <h2>🎇 Book Your Festive Offer 🎇</h2>
@@ -99,21 +113,31 @@
         <input type="text" id="name" placeholder="Enter Name" required>
         <input type="email" id="email" placeholder="Enter Email" required>
         <input type="tel" id="number" placeholder="Enter Number" required>
-		<input type="text" id="service" placeholder="Enter Service" required>		
+        <input type="text" id="service" placeholder="Enter Service" required>
         <textarea id="address" placeholder="Enter Address" required></textarea>
         <button type="submit">Submit</button>
       </form>
+      <div id="loader" class="loader" style="display:none;"></div>
+    </div>
+  </div>
+  <!-- Success Modal -->
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <h2 style="color:darkgreen;">🎉 Booking Successful! 🎉</h2>
+      <p style="color:darkblue;">Thank you for booking your Diwali Offer.</p>
+      <button onclick="document.getElementById('successModal').style.display='none'">OK</button>
     </div>
   </div>
   <audio id="crackers-sound" src="crackers.mp3"></audio>
   <footer>
     <p>© 2025 RCS – Wishing You a Prosperous Diwali! 🎆</p>
-    <p>Email: raisoncspvtltd@gmail.com | Phone: +91-9876543210</p>
+    <p>Email: raisoncspvtltd@gmail.com | Phone: +91-9690026092</p>
     <p style="position: absolute; bottom: -5px; right: 10px; color: yellow; background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 5px;">Developed By: AS</p>
   </footer>
   <div class="firework" style="top:20%; left:30%; background:red;"></div>
   <div class="firework" style="top:40%; left:70%; background:yellow;"></div>
   <div class="firework" style="top:60%; left:50%; background:orange;"></div>
+ 
   <script>
     const canvas = document.getElementById('fire');
     const ctx = canvas.getContext('2d');
@@ -122,9 +146,7 @@
     const particles = [];
     const particleCount = 100;
     class Particle {
-      constructor() {
-        this.reset();
-      }
+      constructor() { this.reset(); }
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = canvas.height;
@@ -150,28 +172,28 @@
         if (this.alpha <= 0) this.reset();
       }
     }
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
+    for (let i = 0; i < particleCount; i++) { particles.push(new Particle()); }
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
+      particles.forEach(p => { p.update(); p.draw(); });
       requestAnimationFrame(animate);
     }
     animate();
     const bookBtn = document.querySelector(".book");
+    const grabBtn = document.getElementById("grabOffer");
     const modal = document.getElementById("formModal");
+    const successModal = document.getElementById("successModal");
     const crackers = document.getElementById("crackers-sound");
-    bookBtn.addEventListener("click", () => {
+    const loader = document.getElementById("loader");
+   
+    function openModal() {
       crackers.play();
       modal.style.display = "flex";
-    });
-    modal.addEventListener("click", (e) => {
-      if(e.target === modal){ modal.style.display = "none"; }
-    });
+    }
+    bookBtn.addEventListener("click", openModal);
+    grabBtn.addEventListener("click", openModal);
+    modal.addEventListener("click", (e) => { if(e.target === modal){ modal.style.display = "none"; } });
+    successModal.addEventListener("click", (e) => { if(e.target === successModal){ successModal.style.display = "none"; } });
     const countdownEl = document.getElementById("countdown");
     const diwaliDate = new Date("Oct 20, 2025 00:00:00").getTime();
     setInterval(() => {
@@ -190,6 +212,7 @@
       target.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   </script>
+ 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
@@ -206,19 +229,23 @@
     const db = getFirestore(app);
     document.getElementById("offerForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      modal.style.display = "none";
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const number = document.getElementById("number").value;
-      const address = document.getElementById("address").value;
+      loader.style.display = "block";
       try {
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const number = document.getElementById("number").value;
+        const service = document.getElementById("service").value;
+        const address = document.getElementById("address").value;
         await addDoc(collection(db, "diwali"), {
-          name, email, number, address,
+          name, email, number, service, address,
           timestamp: new Date()
         });
-        alert("🎉 Booking Successful!");
+        loader.style.display = "none";
+        modal.style.display = "none";
+        successModal.style.display = "flex";
         document.getElementById("offerForm").reset();
       } catch (error) {
+        loader.style.display = "none";
         console.error("Error adding document: ", error);
         alert("❌ Error saving data. Check console.");
       }
